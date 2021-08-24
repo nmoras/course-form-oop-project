@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 //display constructor function
 function Display(){
+    console.log(this) //this points to the Display o
     this.name = document.getElementById('name');
     this.course = document.getElementById('course');
     this.author = document.getElementById('author');
@@ -19,20 +20,22 @@ function Display(){
     this.customerForm = document.getElementById('customer-form');
 
     this.events = function (){
-        this.customerForm.addEventListener('submit', function(event){
+        this.customerForm.addEventListener('submit', (event) => {
             event.preventDefault();
-        
-            const name = this.querySelector('.name');
-            const course = this.querySelector('.course');
-            const author = this.querySelector('.author');
+            console.log(this) //this points to the form
+            const name = document.querySelector('.name');
+            const course = document.querySelector('.course');
+            const author = document.querySelector('.author');
         
             const customer = new Customer(name.value, course.value, author.value);
-            const display = new Display();
+            //const display = new Display();
         
-            display.feedback(customer);
-            display.clearFields();
-    })
-}
+            //display.feedback(customer);
+            //display.clearFields();
+            this.feedback(customer)
+            this.clearFields()
+        })
+    }
 
     this.checkFields = function (){
         this.name.addEventListener('blur', this.validateField);

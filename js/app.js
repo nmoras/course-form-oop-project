@@ -11,15 +11,17 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 //display constructor function
-function Display(){
-    console.log(this) //this points to the Display o
-    this.name = document.getElementById('name');
-    this.course = document.getElementById('course');
-    this.author = document.getElementById('author');
-    this.customers = document.querySelector('.customer-list');
-    this.customerForm = document.getElementById('customer-form');
+class Display {
+    constructor() {
+        console.log(this) //this points to the Display o
+        this.name = document.getElementById('name');
+        this.course = document.getElementById('course');
+        this.author = document.getElementById('author');
+        this.customers = document.querySelector('.customer-list');
+        this.customerForm = document.getElementById('customer-form');
+    }
 
-    this.events = function (){
+    events = function (){
         this.customerForm.addEventListener('submit', (event) => {
             event.preventDefault();
             console.log(this) //this points to the form
@@ -37,13 +39,13 @@ function Display(){
         })
     }
 
-    this.checkFields = function (){
+    checkFields = function (){
         this.name.addEventListener('blur', this.validateField);
         this.course.addEventListener('blur', this.validateField);
         this.author.addEventListener('blur', this.validateField);
     }
 
-    this.validateField = function(){
+    validateField = function(){
         // console.log(this);
         if (this.value === ''){
             this.classList.remove('complete');
@@ -62,12 +64,12 @@ function Display(){
         }
     };
     //disable submit button
-    this.hideSubmit = function(){
+    hideSubmit = function(){
         const btn = document.querySelector('.submitBtn');
         btn.disabled = true;
     };
     //show loading and feedback
-    this.feedback = function (customer) {
+    feedback = function (customer) {
         const feedback = document.querySelector('.feedback');
         const loading = document.querySelector('.loading');
     
@@ -85,7 +87,7 @@ function Display(){
         }, 3000);
     };
     
-    this.addCustomer = function(customer){
+    addCustomer = function(customer){
     
         const random = this.getRandom();
     
@@ -110,12 +112,12 @@ function Display(){
         this.customers.appendChild(div);
     }
     //random number
-   this.getRandom = function(){
+   getRandom = function(){
         let random = Math.floor(Math.random()*5+1);
         return random;
     };
     
-    this.clearFields = function(){
+    clearFields = function(){
         this.name.value = '';
         this.course.value = '';
         this.author.value = '';
@@ -125,7 +127,14 @@ function Display(){
         this.author.classList.remove('complete', 'fail');
     };
 
+      //random number
+  getRandom = function(){
+        let random = Math.floor(Math.random()*5+1);
+        return random;
+    };
+
 }
+
 
 //customer constructor function
 function Customer(name, course, author){
@@ -135,3 +144,5 @@ function Customer(name, course, author){
 };
 
 })()
+
+//https://www.thecodeship.com/web-development/methods-within-constructor-vs-prototype-in-javascript/
